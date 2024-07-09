@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green API Interface</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./public/green-api-icon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <input type="text" id="idInstance" placeholder="idInstance">
+            <input type="text" id="apiTokenInstance" placeholder="ApiTokenInstance">
+            <button onclick="getSettings()">getSettings</button>
+            <button onclick="getStateInstance()">getStateInstance</button>
+            <input type="text" id="phoneNumber" placeholder="77771234567">
+            <textarea id="message" placeholder="Hello World!"></textarea>
+            <button onclick="sendMessage()">sendMessage</button>
+            <input type="text" id="phoneNumberFile" placeholder="77771234567">
+            <input type="text" id="fileUrl" placeholder="https://mysite.com/img/horse.png">
+            <button onclick="sendFileByUrl()">sendFileByUrl</button>
+        </div>
+        <div class="output-section">
+            <h2>Output:</h2>
+            <p id="output">
+                {
+                    "status": "ok",
+                    "data": {
+                        "idInstance": "123456",
+                        "apiTokenInstance":
+                }
+            </p>
+
+        </div>
+    </div>
+
+    <script src="methods.js"></script>
+</body>
+</html>
