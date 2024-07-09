@@ -34,5 +34,5 @@ The API documentation can be found in the [API Documentation](https://green-api.
 ## Screenshots
 
 ![](./public/screenshots/ss3.png)
-![](/public/screenshots/ss2.png)
-![](/public/screenshots/ss1.png)
+![](./public/screenshots/ss2.png)
+![](./public/screenshots/ss1.png)
