@@ -61,14 +61,66 @@ function getStateInstance() {
 }
 
 function sendMessage() {
+    const apiUrl = getAPIUrl()
+    const instanceId = getInstanceId()
+    const apiToken = getApiToken()
     const phoneNumber = getPhoneNumber()
     const message = getMessage()
-    document.getElementById('output').innerText = JSON.stringify({ phoneNumber, message }, null, 4);
+
+    if (!instanceId || !apiToken) {
+        document.getElementById('output').innerText = JSON.stringify({ error: 'Please provide instanceId and apiToken' }, null, 4);
+        return
+    }
+
+    if (!phoneNumber || !message) {
+        document.getElementById('output').innerText = JSON.stringify({ error: 'Please provide phoneNumber and message' }, null, 4);
+        return
+    }
+
+    fetch(`${apiUrl}/waInstance${instanceId}/sendMessage/${apiToken}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({chatId: `${phoneNumber}@c.us`, message })
+        
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.statusCode < 200 || data.statusCode >= 300) {
+                throw new Error(data.message)
+            }
+
+            document.getElementById('output').innerText = JSON.stringify(data, null, 4)
+        })
+        .catch((error) => {
+            document.getElementById('output').innerText = JSON.stringify({ error: error.message }, null, 4)
+        })
+
 }
 
 function sendFileByUrl() {
+    const apiUrl = getAPIUrl()
+    const instanceId = getInstanceId()
+    const apiToken = getApiToken()
     const phoneNumber = getPhoneNumber()
     const fileUrl = getPhoneNumberFile()
+
+
+    if (!instanceId || !apiToken) {
+        document.getElementById('output').innerText = JSON.stringify({ error: 'Please provide instanceId and apiToken' }, null, 4);
+        return
+    }
+
+    if (!phoneNumber || !fileUrl) {
+        document.getElementById('output').innerText = JSON.stringify({ error: 'Please provide phoneNumber and fileUrl' }, null, 4);
+        return
+    }
+    
+
+
+    
+
     document.getElementById('output').innerText = JSON.stringify({ phoneNumber, fileUrl }, null, 4);
 }
 
