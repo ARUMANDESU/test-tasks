@@ -103,8 +103,8 @@ function sendFileByUrl() {
     const apiUrl = getAPIUrl()
     const instanceId = getInstanceId()
     const apiToken = getApiToken()
-    const phoneNumber = getPhoneNumber()
-    const fileUrl = getPhoneNumberFile()
+    const phoneNumber = getPhoneNumberFile()
+    const fileUrl = getFileUrl()
 
 
     if (!instanceId || !apiToken) {
@@ -118,7 +118,25 @@ function sendFileByUrl() {
     }
     
 
+    fetch(`${apiUrl}/waInstance${instanceId}/sendFileByUrl/${apiToken}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({chatId: `${phoneNumber}@c.us`, urlFile: fileUrl, fileName: fileUrl.split('/').pop() })
+        
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.statusCode < 200 || data.statusCode >= 300) {
+                throw new Error(data.message)
+            }
 
+            document.getElementById('output').innerText = JSON.stringify(data, null, 4)
+        })
+        .catch((error) => {
+            document.getElementById('output').innerText = JSON.stringify({ error: error.message }, null, 4)
+        })
     
 
     document.getElementById('output').innerText = JSON.stringify({ phoneNumber, fileUrl }, null, 4);
@@ -173,6 +191,10 @@ function getMessage () {
 
 function getPhoneNumberFile () {
     return document.getElementById('phoneNumberFile').value
+}
+
+function getFileUrl () {
+    return document.getElementById('fileUrl').value
 }
 
 function getAPIUrl () {
